@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35.719" height="35.72" viewBox="0 0 35.719 35.72">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="chara_zoom.svg" class="cls-1" d="M819.51,4788.71l-4.456,4.45-7.037-7.03a15.662,15.662,0,1,1,4.456-4.46Zm-20.088-25.91a10.275,10.275,0,1,0,10.275,10.28A10.289,10.289,0,0,0,799.422,4762.8Zm1.339,16.97h-2.678v-5.35h-5.356v-2.68h5.356v-5.36h2.678v5.36h5.356v2.68h-5.356v5.35Z" transform="translate(-783.781 -4757.44)"/>
+</svg>

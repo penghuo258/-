@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+.video-wrapper.svelte-p45w96 video:where(.svelte-p45w96) { position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover; pointer-events: none; z-index: 0; opacity: 0; }
+
+.video-wrapper.svelte-p45w96 video:where(.svelte-p45w96)::-webkit-media-controls-panel, .video-wrapper.svelte-p45w96 video:where(.svelte-p45w96)::-webkit-media-controls-play-button, .video-wrapper.svelte-p45w96 video:where(.svelte-p45w96)::-webkit-media-controls-start-playback-button { appearance: none; display: none !important; }
+
+.video-wrapper.is-playing.svelte-p45w96 video:where(.svelte-p45w96) { opacity: 1; }
+
+.video-wrapper.svelte-p45w96 .video-poster:where(.svelte-p45w96) { position: absolute; inset: 0px; width: 100%; height: 100%; z-index: 1; opacity: 1; visibility: visible; transition: opacity 0.4s ease 0s, visibility 0.4s ease 0s; pointer-events: none; background: rgb(0, 0, 0); }
+
+.video-wrapper.svelte-p45w96 .video-poster:where(.svelte-p45w96) img { width: 100%; height: 100%; object-fit: cover; }
+
+.video-wrapper.svelte-p45w96 .video-poster.is-skipped:where(.svelte-p45w96) { opacity: 0; visibility: hidden; }
+
+.video-wrapper.is-playing.svelte-p45w96 .video-poster:where(.svelte-p45w96) { opacity: 0; visibility: hidden; }

@@ -1,0 +1,137 @@
+/* ═══════════════════════════════════════════════════════
+   楼层导航 — 两种形态（按用户提供的对比图）
+
+   形态 A「白底横排」：白底 + 黑色文字，紧凑相连
+        统治者 | 第一层 弹哭 | 第二层 禁牙 | ...
+   形态 B「纹章竖排」：竖排文字 + 阵营纹章，浮于画面
+        总监制 / 第一层 "弹哭" + 青色纹章
+   ═══════════════════════════════════════════════════════ */
+
+/* ── 容器 ── */
+.mn-nav {
+  max-width:1280px; margin:0 auto 60px;
+}
+.mn-nav-bar {
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.mn-nav-label {
+  font-family:var(--sans); font-size:11px; letter-spacing:.3em;
+  color:rgba(232,230,224,.4); margin-bottom:14px;
+}
+
+/* ── 形态切换钮 ── */
+.mn-nav-modes { display:flex; gap:8px; margin-bottom:18px; }
+.mn-mode {
+  height:32px; padding:0 18px; border-radius:999px; cursor:pointer;
+  border:1px solid rgba(177,127,137,.3); background:transparent;
+  color:rgba(232,230,224,.6);
+  font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:.14em;
+  transition:color .3s, border-color .3s, background .3s;
+}
+.mn-mode:hover { color:#fff; border-color:var(--rose); }
+.mn-mode.is-on {
+  color:var(--ink); background:var(--rose); border-color:transparent;
+}
+
+/* ═══ 形态 A：白底横排 ═══ */
+.mn-nav--bar .mn-nav-bar {
+  background:#f2ede4;
+  box-shadow:0 10px 40px rgba(0,0,0,.5);
+}
+.mn-nav--bar .nav-btn {
+  flex:1 1 auto; min-width:0;
+  height:62px; padding:0 6px; cursor:pointer;
+  border:0; border-right:1px solid rgba(0,0,0,.16);
+  background:transparent;
+  font-family:var(--sans); font-size:clamp(11px,1.15vw,17px); font-weight:700;
+  color:#1a1a1a; letter-spacing:.02em; white-space:nowrap;
+  position:relative;
+  transition:background .3s, color .3s;
+}
+.mn-nav--bar .nav-btn:last-child { border-right:0; }
+.mn-nav--bar .nav-btn:hover { background:rgba(0,0,0,.08); }
+.mn-nav--bar .nav-btn.is-on {
+  background:#1a1a1a; color:#fff;
+}
+
+/* ═══ 形态 B：纹章竖排 ═══ */
+.mn-nav--crest .mn-nav-bar {
+  flex-direction:column; align-items:stretch; gap:0;
+  max-width:520px; margin:0 auto;
+  border:1px solid rgba(177,127,137,.22);
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+}
+.mn-nav--crest .nav-btn {
+  position:relative;
+  display:flex; align-items:center; justify-content:flex-end; gap:14px;
+  padding:14px 22px 14px 0; cursor:pointer;
+  border:0; border-bottom:1px solid rgba(177,127,137,.14);
+  background:transparent;
+  transition:background .3s;
+}
+.mn-nav--crest .nav-btn:last-child { border-bottom:0; }
+.mn-nav--crest .nav-btn:hover { background:rgba(255,255,255,.06); }
+
+/* 楼层文字：竖排 */
+.mn-nav--crest .nav-txt {
+  writing-mode:vertical-rl; text-orientation:upright;
+  font-family:var(--sans); font-size:clamp(15px,1.5vw,20px); font-weight:700;
+  line-height:1.15; letter-spacing:.06em;
+  color:#fff; white-space:nowrap;
+  text-shadow:0 2px 10px rgba(0,0,0,.8);
+}
+.mn-nav--crest .nav-btn.is-on .nav-txt { color:var(--fc); }
+
+/* 阵营纹章 */
+.mn-nav--crest .nav-crest {
+  flex:1 1 auto; height:auto; max-height:60px; width:auto;
+  object-fit:contain; opacity:.9;
+  filter:drop-shadow(0 0 8px var(--fc));
+  transition:opacity .3s, transform .4s var(--ease), filter .4s;
+}
+.mn-nav--crest .nav-btn:hover .nav-crest { opacity:1; transform:scale(1.06); }
+.mn-nav--crest .nav-btn.is-on .nav-crest {
+  opacity:1; transform:scale(1.1);
+  filter:drop-shadow(0 0 16px var(--fc)) brightness(1.15);
+}
+
+/* 统治者项 */
+.mn-nav--crest .nav-btn--sovereign .nav-txt {
+  font-size:clamp(17px,1.8vw,24px); letter-spacing:.1em;
+}
+
+/* ── 横排固定于页面顶部（跟随文档流，不fixed） ── */
+@media (min-width:1200px) {
+  .mn-nav--crest { position:relative; left:auto; top:auto; transform:none;
+    z-index:auto; max-width:1400px; margin:0 auto 56px; }
+  .mn-nav--crest .mn-nav-bar {
+    flex-direction:row; align-items:stretch;
+    max-width:none; border-left:0; border-right:0;
+    gap:0;
+  }
+  .mn-nav--crest .nav-btn {
+    flex:1 1 0; min-width:0;
+    flex-direction:row; align-items:center; justify-content:center;
+    gap:8px; padding:12px 6px;
+    border-bottom:0; border-right:1px solid rgba(177,127,137,.14);
+  }
+  .mn-nav--crest .nav-btn:last-child { border-right:0; }
+  .mn-nav--crest .nav-txt {
+    writing-mode:horizontal-tb; text-orientation:mixed;
+    font-size:13px; white-space:nowrap; letter-spacing:.02em;
+  }
+  .mn-nav--crest .nav-btn--sovereign .nav-txt { font-size:15px; }
+  .mn-nav--crest .nav-crest { flex:0 0 auto; max-height:30px; width:auto; }
+}
+
+@media (max-width:1199px) {
+  .mn-nav--crest .mn-nav-bar { max-width:100%; }
+}
+
+/* ── 窄屏 ── */
+@media (max-width:720px) {
+  .mn-nav--bar .nav-btn { height:48px; font-size:11px; padding:0 3px; }
+  .mn-nav--crest .nav-txt { font-size:14px; }
+  .mn-nav--crest .nav-crest { max-height:40px; }
+}

@@ -1,0 +1,111 @@
+/* ═══════════════════════════════════════════════════════
+   楼层插图 —— 小图并排（不占篇幅）
+
+   插图为竖构图 1060×1272，限宽展示，点击放大
+   ═══════════════════════════════════════════════════════ */
+
+.illus {
+  margin-top:20px;
+  background:rgba(0,0,0,.8);
+  border-left:3px solid var(--fc);
+  padding:16px 22px 18px;
+}
+
+.illus-row {
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+}
+
+.illus-item {
+  position:relative; flex:0 0 auto; cursor:zoom-in;
+  width:clamp(96px,12vw,150px);
+  overflow:hidden; background:#0a0a10;
+}
+.illus-item img {
+  display:block; width:100%; height:auto;
+  transition:transform .6s var(--ease), filter .5s;
+}
+.illus-item:hover img { transform:scale(1.05); filter:brightness(1.08); }
+
+/* 角标提示可放大 */
+.illus-item::after {
+  content:''; position:absolute; right:6px; bottom:6px;
+  width:22px; height:22px;
+  background:rgba(0,0,0,.6) url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7'/%3E%3C/svg%3E") center/12px no-repeat;
+  border-radius:50%; opacity:0; transition:opacity .3s;
+}
+.illus-item:hover::after { opacity:1; }
+
+/* 右侧文字 */
+.illus-meta {
+  flex:1 1 220px; min-width:0;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.illus-cap {
+  font-family:var(--sans); font-size:15px; font-weight:700;
+  letter-spacing:.04em; color:#fff; margin-bottom:6px;
+}
+.illus-pair {
+  font-family:var(--sans); font-size:13px; letter-spacing:.14em;
+  color:var(--fc); margin-bottom:8px;
+}
+.illus-note {
+  font-family:var(--sans); font-size:12.5px; line-height:1.8;
+  color:rgba(232,230,224,.5);
+}
+
+/* 考据小节（楼层级，在插图区下方） */
+.illus-rd + .illus-rd { margin-top:24px; padding-top:20px;
+  border-top:1px solid rgba(232,230,224,.12); }
+.illus-rd-h {
+  font-family:var(--sans); font-size:19px; font-weight:700;
+  color:#fff; margin-bottom:12px;
+  display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+}
+.illus-rd-h span {
+  font-size:12px; font-weight:400; letter-spacing:.1em; color:var(--fc);
+}
+.illus-rd-s { margin-bottom:16px; }
+.illus-rd-s:last-child { margin-bottom:0; }
+.illus-rd-s b {
+  display:block; font-family:var(--sans); font-size:15px;
+  color:#fff; margin-bottom:8px; letter-spacing:.04em;
+}
+.illus-rd-s p {
+  font-family:var(--sans); font-size:15px; line-height:1.95;
+  color:rgba(255,255,255,.86); margin-bottom:8px;
+}
+.illus-rd-s p:last-child { margin-bottom:0; }
+
+/* ── 灯箱 ── */
+.mn-lightbox {
+  position:fixed; inset:0; z-index:9500;
+  background:rgba(4,4,9,.95); backdrop-filter:blur(10px);
+  display:none; align-items:center; justify-content:center; padding:40px;
+}
+.mn-lightbox.is-open { display:flex; }
+.mn-lb-img {
+  max-width:min(90vw, 1000px); max-height:88vh;
+  object-fit:contain; width:auto; height:auto;
+  box-shadow:0 30px 100px rgba(0,0,0,.8);
+}
+.mn-lb-cap {
+  margin-top:16px; text-align:center;
+  font-family:var(--sans); font-size:13px; letter-spacing:.14em;
+  color:rgba(232,230,224,.6);
+}
+.mn-lb-close {
+  position:absolute; top:24px; right:24px;
+  width:44px; height:44px; border-radius:50%; cursor:pointer;
+  border:1px solid rgba(232,230,224,.24); background:rgba(10,10,17,.8);
+  color:#e8e6e0; display:grid; place-items:center;
+  transition:background .3s, transform .4s var(--ease);
+}
+.mn-lb-close svg { width:18px; height:18px; }
+.mn-lb-close:hover { background:#eb422e; transform:rotate(90deg); }
+
+/* ── 响应式 ── */
+@media (max-width:720px) {
+  .illus { padding:14px 16px 16px; }
+  .illus-row { gap:14px; }
+  .illus-item { width:clamp(84px,24vw,120px); }
+}

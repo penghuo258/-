@@ -1,0 +1,231 @@
+/* ═══════════════════════════════════════════════════════════
+   官方按钮体系（全部参数实测自官方页面，非推测）
+
+   底色  linear-gradient(90deg,
+           rgba(64,14,8,.76), rgba(39,28,32,.76) 50%, rgba(13,42,56,.76))
+   描边  1px 渐变边框 #f5361f → #b17f89 → #33a0d6
+         用 ::before + padding:1px + mask 实现
+   箭头  11×20，fill #eb422e；hover → #33a0d6
+   hover --angle 由 90deg 变 -90deg（渐变流动）
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* 官方按钮渐变 */
+  --btn-grad: linear-gradient(var(--btn-angle, 90deg),
+    rgba(64,14,8,.76), rgba(39,28,32,.76) 50%, rgba(13,42,56,.76));
+  --btn-border: linear-gradient(var(--btn-angle, 90deg), #f5361f, #b17f89, #33a0d6);
+  --btn-red: #eb422e;
+  --btn-blue: #33a0d6;
+}
+
+/* ── 基础：渐变底 + 渐变描边 ── */
+.mn-btn {
+  position:relative; isolation:isolate;
+  display:inline-flex; align-items:center; justify-content:center;
+  border:0; cursor:pointer;
+  font-family:var(--sans); color:#fff;
+  background:var(--btn-grad);
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease), opacity .3s;
+}
+.mn-btn::before {
+  content:''; position:absolute; inset:0;
+  border-radius:inherit; padding:1px; z-index:-1;
+  background:var(--btn-border);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  transition:background .6s var(--ease);
+}
+.mn-btn:hover {
+  --btn-angle:-90deg;
+  transform:translateY(-2px);
+  box-shadow:0 10px 32px rgba(0,0,0,.5);
+}
+.mn-btn .mn-arrow {
+  width:11px; height:20px; flex-shrink:0;
+  fill:var(--btn-red);
+  transition:fill .5s var(--ease), transform .5s var(--ease);
+}
+.mn-btn:hover .mn-arrow { fill:var(--btn-blue); transform:translateX(3px); }
+
+/* ── 1. 圆钮（放大/查看）：36×36 圆形 ── */
+.mn-btn--round {
+  width:36px; height:36px; min-width:36px;
+  border-radius:999px; padding:0;
+}
+.mn-btn--round .mn-arrow { width:11px; height:20px; }
+
+/* ── 2. 胶囊钮（语音/通常/特殊）：h26 padding 0 10px gap 6 字号14 ── */
+.mn-btn--pill {
+  height:26px; padding:0 10px; gap:6px;
+  border-radius:999px; font-size:14px; line-height:21px;
+  font-weight:400; letter-spacing:0;
+}
+.mn-btn--pill img { width:22px; height:auto; flex-shrink:0; }
+
+/* ── 3. 大胶囊（查看风味文本）：h94 padding 0 56px gap 20 字号24 ── */
+.mn-btn--xl {
+  height:94px; padding:0 56px; gap:20px;
+  border-radius:0; font-size:24px; line-height:30px; font-weight:700;
+  letter-spacing:.02em;
+}
+.mn-btn--xl .mn-arrow { width:14px; height:26px; }
+.mn-btn--xl:hover { transform:translateY(-3px); }
+
+/* ── 4. 顶部导航钮：字号14 padding 0 14 h40 ── */
+.mn-btn--nav {
+  height:40px; padding:0 14px; gap:8px;
+  border-radius:0; font-size:14px; font-weight:700; letter-spacing:.08em;
+}
+
+/* ── 角色卡内的操作区 ── */
+.chara-ops { display:flex; align-items:center; gap:12px; margin-top:18px; flex-wrap:wrap; }
+
+/* 语音按钮组 */
+.chara-voice { display:inline-flex; gap:8px; }
+.mn-btn--voice {
+  height:32px; padding:0 14px; gap:7px;
+  border-radius:999px; font-size:14px; line-height:1;
+  font-weight:700; letter-spacing:.06em;
+}
+.mn-btn--voice img { width:20px; height:auto; }
+
+/* 「解读」主按钮 */
+.mn-btn--read {
+  height:44px; padding:0 28px; gap:12px;
+  border-radius:999px; font-size:15px; font-weight:700; letter-spacing:.1em;
+}
+
+/* ── 顶部 PV / 大圆钮（hero 区） ── */
+.mn-btn--pv {
+  width:120px; height:120px; border-radius:999px;
+  flex-direction:column; gap:8px; font-size:13px; font-weight:700; letter-spacing:.16em;
+}
+.mn-btn--pv .mn-arrow { width:16px; height:29px; }
+
+/* ── 楼层跳转胶囊 ── */
+.mn-jump { display:flex; flex-wrap:wrap; gap:9px; justify-content:center; }
+.mn-jump .mn-btn {
+  height:38px; padding:0 20px; border-radius:999px;
+  font-size:13px; font-weight:700; letter-spacing:.1em;
+  color:var(--paper-dim);
+}
+.mn-jump .mn-btn:hover { color:#fff; }
+.mn-jump .mn-btn.is-on {
+  color:var(--ink); border-color:transparent;
+  background:linear-gradient(var(--fc, var(--gold)));
+}
+.mn-jump .mn-btn.is-on::before { opacity:0; }
+
+/* ── 视图切换（顶部胶囊） ── */
+.mn-viewswitch {
+  position:fixed; top:20px; left:50%; transform:translateX(-50%);
+  z-index:900; display:flex; gap:3px; padding:4px;
+  background:rgba(7,7,12,.92); border-radius:999px;
+  border:1px solid rgba(177,127,137,.3);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 10px 34px rgba(0,0,0,.6);
+}
+.vs-btn {
+  display:inline-flex; align-items:center; gap:9px;
+  height:38px; padding:0 22px 0 14px; border:0; cursor:pointer; border-radius:999px;
+  background:transparent; color:rgba(232,230,224,.55);
+  font-family:var(--sans); font-size:13px; font-weight:700; letter-spacing:.1em;
+  transition:color .3s, background .4s var(--ease);
+}
+.vs-btn:hover { color:#fff; }
+.vs-btn.is-on { color:var(--ink); background:linear-gradient(120deg,var(--rose),#c99aa4); }
+.vs-ico {
+  display:grid; place-items:center; width:22px; height:22px; border-radius:50%;
+  font-family:var(--serif); font-size:12px; font-weight:700; border:1px solid currentColor;
+}
+.vs-btn.is-on .vs-ico { border-color:rgba(0,0,0,.3); }
+
+/* ── 悬浮入口 FAB ── */
+.mn-fab {
+  position:fixed; right:26px; bottom:26px; z-index:8000;
+  width:60px; height:60px; border-radius:999px; cursor:pointer;
+  display:grid; place-items:center;
+  border:0; isolation:isolate;
+  background:var(--btn-grad);
+  box-shadow:0 10px 40px rgba(0,0,0,.6);
+  transition:transform .45s var(--ease), box-shadow .45s;
+}
+.mn-fab::before {
+  content:''; position:absolute; inset:0; border-radius:inherit; padding:1px; z-index:-1;
+  background:var(--btn-border);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+}
+.mn-fab:hover { --btn-angle:-90deg; transform:translateY(-3px) scale(1.04);
+  box-shadow:0 16px 50px rgba(245,54,31,.32); }
+.mn-fab-orb {
+  width:20px; height:20px; border-radius:50%;
+  background:radial-gradient(circle at 34% 30%, #fff, var(--light) 46%, #c9b478 84%);
+  box-shadow:0 0 14px rgba(255,250,210,.55);
+  animation:mnBreathe 4.4s ease-in-out infinite;
+}
+@keyframes mnBreathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.14)} }
+
+/* ── 对位卡片 ── */
+.match {
+  margin-top:30px; padding:0; background:rgba(0,0,0,.8);
+  border-left:3px solid var(--fc);
+}
+.match-k {
+  font-family:var(--sans); font-size:12px; letter-spacing:.26em;
+  color:rgba(232,230,224,.5); padding:14px 24px 0;
+}
+.match-pair {
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:20px;
+  padding:20px 24px 24px;
+}
+.ms-name { font-family:var(--sans); font-size:22px; font-weight:700; color:#fff; margin-bottom:8px; }
+.ms-role {
+  display:inline-block; font-family:var(--sans); font-size:13px; font-weight:700;
+  letter-spacing:.08em; padding:5px 16px; border-radius:999px; margin-bottom:8px;
+}
+.ms-proto { font-family:var(--sans); font-size:13px; color:rgba(232,230,224,.55); }
+.ms--a .ms-role { background:rgba(255,255,255,.12); color:var(--fc); }
+.ms--b .ms-role { background:rgba(255,255,255,.12); color:var(--fc); }
+.ms-vs { font-family:var(--sans); font-size:13px; letter-spacing:.18em; color:var(--rose); }
+
+/* ── 响应式 ── */
+/* ── 立绘区与圆钮定位 ── */
+.chara-fig { position:relative; }
+.chara-zoom {
+  position:absolute; right:22px; bottom:18px; z-index:4;
+}
+/* 放大切换 */
+.chara-fig img.is-zoomed {
+  max-width:none; width:auto; height:auto;
+  position:relative; z-index:5;
+  transform:scale(1.9); transform-origin:center bottom;
+}
+.chara-fig:has(img.is-zoomed) {
+  z-index:20;
+}
+.chara.is-zoom-open { position:relative; z-index:20; }
+
+/* ── 解读区折叠 ── */
+.chara-reading {
+  display:none;
+}
+.chara-reading.is-open { display:block; }
+.mn-btn--read.is-on { --btn-angle:90deg; }
+
+/* ── 语音钮 ── */
+.chara-voice .mn-btn img { filter:brightness(0) invert(1); opacity:.9; }
+
+/* ── 响应式 ── */
+@media (max-width:1000px) {
+  .match-pair { grid-template-columns:1fr; gap:14px; }
+  .ms-vs { transform:rotate(90deg); justify-self:center; }
+  .mn-btn--xl { height:64px; padding:0 28px; font-size:18px; }
+}
+@media (max-width:720px) {
+  .mn-viewswitch { top:14px; }
+  .vs-btn { height:34px; padding:0 16px 0 11px; font-size:12px; }
+  .vs-txt { display:none; }
+  .vs-btn.is-on .vs-txt { display:inline; }
+  .mn-fab { right:16px; bottom:16px; width:52px; height:52px; }
+}

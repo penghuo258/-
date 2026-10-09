@@ -1,0 +1,35 @@
+# 构建中间产物（可由脚本重新生成）
+_extract/
+
+# 备份目录
+backup/
+
+# 原始素材快照（体积大，且已包含在 original/ 中）
+任务组_20261009_1306/
+新建文件夹/
+理想者/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 编辑器与系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+
+# 临时验证产物
+_edgeprofile/
+_v*.png
+_screenshot*.png
+
+# 构建脚本（非源码）
+verify_cdp.py
+scan_unused.py
+
+# WorkBuddy 本地记忆（私人笔记，不上传）
+.workbuddy/
