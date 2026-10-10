@@ -12,6 +12,20 @@ python -m http.server 8902
 # 浏览器打开 http://127.0.0.1:8902/
 ```
 
+## 在线访问（GitHub Pages）
+
+仓库已配置为 GitHub Pages站点，访问：
+
+```
+https://penghuo258.github.io/-/
+```
+
+若未生效，在仓库 **Settings → Pages** 中把 Source 设为 `main` 分支、`/ (root)`。
+
+所有资源使用相对路径（`archive/assets/…`），因此在子路径部署下无需额外配置。
+
+> ⚠️ 本仓库包含《影之诗：超凡世界》官方素材，版权归 Cygames 所有。公开部署等于公开分发版权内容，可能触发 DMCA 下架。仅供个人学习研究使用。
+
 ## 两个视图
 
 顶部中央有「考据卷 / 原站」切换按钮。
